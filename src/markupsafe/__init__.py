@@ -139,8 +139,7 @@ class Markup(str):
         >>> Markup("Main &raquo;\t<em>About</em>").striptags()
         'Main » About'
         """
-        # collapse spaces
-        value = " ".join(self.split())
+        value = str(self)
 
         # Look for comments then tags separately. Otherwise, a comment that
         # contains a tag would end early, leaving some of the comment behind.
@@ -160,6 +159,8 @@ class Markup(str):
 
             value = f"{value[:start]}{value[end + 1:]}"
 
+        # collapse spaces
+        value = " ".join(value.split())
         return self.__class__(value).unescape()
 
     @classmethod
@@ -238,14 +239,14 @@ class Markup(str):
             return self.__class__(super().removesuffix(suffix))
 
     def partition(self, sep: str, /) -> tuple[te.Self, te.Self, te.Self]:
-        l, s, r = super().partition(sep)
+        left, sep, right = super().partition(sep)
         cls = self.__class__
-        return cls(l), cls(s), cls(r)
+        return cls(left), cls(sep), cls(right)
 
     def rpartition(self, sep: str, /) -> tuple[te.Self, te.Self, te.Self]:
-        l, s, r = super().rpartition(sep)
+        left, sep, right = super().rpartition(sep)
         cls = self.__class__
-        return cls(l), cls(s), cls(r)
+        return cls(left), cls(sep), cls(right)
 
     def format(self, *args: t.Any, **kwargs: t.Any) -> te.Self:
         formatter = EscapeFormatter(self.escape)

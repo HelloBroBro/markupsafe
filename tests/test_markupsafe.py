@@ -82,7 +82,7 @@ def test_escaping(escape: TPEscape) -> None:
         Markup(
             "<!-- outer comment -->"
             "<em>Foo &amp; Bar"
-            "<!-- inner comment about <em> -->"
+            " <!-- inner comment about <em> -->\n "
             "</em>"
             "<!-- comment\nwith\nnewlines\n-->"
             "<meta content='tag\nwith\nnewlines'>"
@@ -205,6 +205,6 @@ def test_escape_return_type(escape: TPEscape) -> None:
 
 
 def test_soft_str(soft_str: TPSoftStr) -> None:
-    assert type(soft_str("")) is str
-    assert type(soft_str(Markup())) is Markup
-    assert type(soft_str(15)) is str
+    assert type(soft_str("")) is str  # noqa: E721
+    assert type(soft_str(Markup())) is Markup  # noqa: E721
+    assert type(soft_str(15)) is str  # noqa: E721

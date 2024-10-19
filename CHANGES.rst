@@ -4,6 +4,15 @@ Version 3.1.0
 Unreleased
 
 
+Version 3.0.2
+-------------
+
+Released 2024-10-18
+
+-   Fix compatibility when ``__str__`` returns a ``str`` subclass. :issue:`472`
+-   Build requires setuptools >= 70.1. :issue:`475`
+
+
 Version 3.0.1
 -------------
 
